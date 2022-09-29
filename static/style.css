@@ -1,0 +1,30 @@
+.container, #map {
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.container {
+	height: 100%
+}
+
+html, body, p, form, #distance_box {
+	text-align: center;
+}
+
+html, body {
+	height: 100%;
+}
+
+#map {
+	width: 50%;
+	height: 50%;
+	margin-bottom: 50px;
+}
+
+input[type="submit"] {
+   padding: 10px;
+}
+
+input[type="form"] {
+   padding: 10px;
+}

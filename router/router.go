@@ -1,32 +1,32 @@
 package router
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 
 	"github.com/DelusionalOptimist/distance-api/handlers"
+	"github.com/DelusionalOptimist/distance-api/utils"
 )
 
 type Router struct {
 	mux *http.ServeMux
-	port int
 }
 
-func NewRouter(port int, logger *log.Logger) *Router {
+func NewRouter(logger *log.Logger) *Router {
 	mux := http.NewServeMux()
 
 	handler := handlers.NewHandler(logger)
-	mux.HandleFunc("/getdistance", handler.GetDistance)
+
+	mux.Handle("/", http.FileServer(http.Dir("./static")))
+	mux.HandleFunc("/getDistance", handler.GetDistance)
 
 	return &Router{
 		mux:  mux,
-		port: port,
 	}
 }
 
 func (r *Router) Run() error {
-	err := http.ListenAndServe(fmt.Sprintf(":%d", r.port), r.mux)
+	err := http.ListenAndServe(":" + utils.GlobalConfig.Port, r.mux)
 	if err != nil {
 		return err
 	}

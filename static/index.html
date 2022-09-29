@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="author" content="Rudraksh Pareek">
+	<title>Distance API</title>
+	<meta name="description" content="A simple API which returns distance between two given places.">
+	<link rel="icon" type="image/png" href="favicon.ico" sizes="32x32">
+	<link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+	<div class="container">
+		<h1 >Distance API</h1>
+		<p>Calculate distance between any two given places</p>
+		<form method="post" id="location_data" action="/getDistance">
+			<label for="form">Origin</label>
+			<br>
+			<input type="form" id="origin" name="origin" placeholder="example: Sydney">
+			<br><br>
+			<label for="form">Destination</label>
+			<br>
+			<input type="form" id="destination" name="destination" placeholder="example: Perth">
+			<br><br>
+			<input type="submit" value="Go!">
+			<br>
+		</form>
+		<div id="distance_box">
+			<p><b>Distance:</b></p>
+			<p><b>Duration:</b></p>
+		</div>
+		<br>
+		<div id="map"></div>
+	</div>
+</body>
+<script src="script.js"></script>
+<script
+		src="https://maps.googleapis.com/maps/api/js?key=<api-key>&callback=initMap&v=weekly"
+	defer></script>
+
+</html>

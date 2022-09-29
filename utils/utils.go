@@ -8,7 +8,7 @@ import (
 )
 
 func GoogleDistanceAPI(distanceRequest *maps.DistanceMatrixRequest) (*maps.DistanceMatrixResponse, error) {
-	c, err := maps.NewClient(maps.WithAPIKey("<api-key>"))
+	c, err := maps.NewClient(maps.WithAPIKey(GlobalConfig.APIKey))
 	if err != nil {
 		log.Fatalf("fatal error: %s", err)
 		return nil, err
@@ -20,6 +20,5 @@ func GoogleDistanceAPI(distanceRequest *maps.DistanceMatrixRequest) (*maps.Dista
 		return nil, err
 	}
 
-	//pretty.Println(distance)
 	return distanceResponse, nil
 }

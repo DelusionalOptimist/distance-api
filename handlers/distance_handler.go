@@ -8,16 +8,25 @@ import (
 	"googlemaps.github.io/maps"
 )
 
+type DistanceRequest struct {
+	Origin string `json:"origin"`
+	Destination string `json:"destination"`
+}
+
 type DistanceResponse struct {
+	Status string `json:"status"`
+	Duration string `json:"duration"`
+	Distance string `json:"distance"`
 }
 
 func (h *Handler) GetDistance (w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodGet {
+	if r.Method != http.MethodPost {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
 
-	err := r.ParseForm()
+	distanceReqeust := &DistanceRequest{}
+	err := json.NewDecoder(r.Body).Decode(distanceReqeust)
 	if err != nil {
 		h.Log.Println(err)
 		http.Error(w, err.Error(), http.StatusBadRequest)
@@ -26,18 +35,33 @@ func (h *Handler) GetDistance (w http.ResponseWriter, r *http.Request) {
 
 	distanceMatrixReq := &maps.DistanceMatrixRequest{
 		Origins: []string{
-			r.FormValue("origin"),
+			distanceReqeust.Origin,
 		},
 		Destinations: []string{
-			r.FormValue("destination"),
+			distanceReqeust.Destination,
 		},
 	}
 
-	distanceMatrixResp, err := utils.GoogleDistanceAPI(distanceMatrixReq)
+	googleAPIResponse, err := utils.GoogleDistanceAPI(distanceMatrixReq)
 	if err != nil {
 		h.Log.Println(err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
+	}
+
+	distanceMatrixResp := &DistanceResponse{}
+	if googleAPIResponse.Rows[0].Elements[0].Status == "OK" {
+		distanceMatrixResp = &DistanceResponse{
+			Status: "OK",
+			Distance: googleAPIResponse.Rows[0].Elements[0].Distance.HumanReadable,
+			Duration: googleAPIResponse.Rows[0].Elements[0].Duration.String(),
+		}
+	} else {
+		distanceMatrixResp = &DistanceResponse{
+			Status: "ZERO_RESULTS",
+			Distance: "undefined",
+			Duration: "undefined",
+		}
 	}
 
 	jsonResp, err := json.Marshal(distanceMatrixResp)
