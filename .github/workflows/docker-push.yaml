@@ -6,7 +6,7 @@ on:
       - "*"
     paths:
       - "**.go"
-      - "static"
+      - "static/"
       - ".github/workflows/docker-push.yaml"
 
 jobs:
