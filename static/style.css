@@ -55,7 +55,6 @@ html, body {
 }
 
 #pac-input:focus, input[type="submit"]:focus {
-	border-width: thick;
 	border-color: #4d90fe;
 }
 
