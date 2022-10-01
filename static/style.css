@@ -1,3 +1,7 @@
+html * {
+	font-family: "sans-serif";
+}
+
 .container, #map {
 	margin-left:auto;
 	margin-right:auto;
@@ -7,12 +11,16 @@
 	height: 100%
 }
 
-html, body, p, form, #distance_box {
+html, body, p, form, #result-box {
 	text-align: center;
 }
 
 html, body {
 	height: 100%;
+}
+
+#result-box {
+	margin-top: 12px;
 }
 
 #map {
@@ -21,10 +29,42 @@ html, body {
 	margin-bottom: 50px;
 }
 
+#description {
+	font-size: 15px;
+	font-weight: 300;
+}
+
+.title {
+	font-weight: bold;
+}
+
+#pac-container {
+	padding-bottom: 12px;
+	margin-right: 12px;
+}
+
+.pac-input {
+	background-color: #fff;
+	font-size: 15px;
+	font-weight: 300;
+	margin-left: 12px;
+	margin-top: 12px;
+	padding: 0 11px 0 13px;
+	text-overflow: ellipsis;
+	width: 400px;
+}
+
+#pac-input:focus, input[type="submit"]:focus {
+	border-width: thick;
+	border-color: #4d90fe;
+}
+
 input[type="submit"] {
-   padding: 10px;
+	margin-top: 12px;
+	padding: 5px;
 }
 
 input[type="form"] {
-   padding: 10px;
+	padding: 5px;
+	width: 80%;
 }

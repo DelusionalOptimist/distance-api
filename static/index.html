@@ -12,31 +12,28 @@
 
 <body>
 	<div class="container">
-		<h1 >Distance API</h1>
-		<p>Calculate distance between any two given places</p>
-		<form method="post" id="location_data" action="/getDistance">
-			<label for="form">Origin</label>
-			<br>
-			<input type="form" id="origin" name="origin" placeholder="example: Sydney">
-			<br><br>
-			<label for="form">Destination</label>
-			<br>
-			<input type="form" id="destination" name="destination" placeholder="example: Perth">
-			<br><br>
-			<input type="submit" value="Go!">
-			<br>
-		</form>
-		<div id="distance_box">
+		<div class="pac-card" id="pac-card">
+			<h1>Distance API</h1>
+			<div id="pac-container">
+				<form method="post" id="location-data" action="/getDistance">
+					<input class="pac-input" id="origin" name="origin" type="form" placeholder="Origin" />
+					<input class="pac-input" id="destination" name="destination" type="form" placeholder="Destination" />
+					<br>
+					<input type="submit" value="Go!">
+				</form>
+			</div>
+		</div>
+		<div id="result-box">
 			<p><b>Distance:</b></p>
 			<p><b>Duration:</b></p>
 		</div>
-		<br>
 		<div id="map"></div>
 	</div>
+
 </body>
 <script src="script.js"></script>
 <script
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYSUCS6fAu3ZXu5sFa6VWe79zluNjJ7cA&callback=initMap&v=weekly"
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYSUCS6fAu3ZXu5sFa6VWe79zluNjJ7cA&callback=initMap&libraries=places&v=weekly"
 	defer></script>
 
 </html>
