@@ -27,6 +27,9 @@ html, body {
 	width: 50%;
 	height: 50%;
 	margin-bottom: 50px;
+	border: 5px solid;
+	border-radius: 25px;
+	border-color: #4d90fe;
 }
 
 #description {
@@ -46,7 +49,7 @@ html, body {
 .pac-input {
 	background-color: #fff;
 	font-size: 15px;
-	font-weight: 300;
+	font-weight: normal;
 	margin-left: 12px;
 	margin-top: 12px;
 	padding: 0 11px 0 13px;
@@ -61,9 +64,11 @@ html, body {
 input[type="submit"] {
 	margin-top: 12px;
 	padding: 5px;
+	border-radius: 5px;
 }
 
 input[type="form"] {
 	padding: 5px;
 	width: 80%;
+	border-radius: 5px;
 }

@@ -1,5 +1,6 @@
 # Distance API
 A minimalistic app using Google Maps' APIs to get the distance and plot a route between two addresses.
+![demo image](./image.png)
 
 ## Try it out
 ### Live
