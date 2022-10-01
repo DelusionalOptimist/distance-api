@@ -1,5 +1,5 @@
 const form = document.getElementById("location-data");
-const distance = document.getElementById("result-box")
+const result = document.getElementById("result-box")
 const placesInput = document.getElementsByClassName("pac-input");
 
 // initializes the map for displaying route
@@ -44,7 +44,7 @@ function initMap() {
 			if (!place.geometry || !place.geometry.location) {
 				// User entered the name of a Place that was not suggested and
 				// pressed the Enter key, or the Place Details request failed.
-				window.alert("No details available for input: '" + place.name + "'");
+				console.log("No details available for input: '" + place.name + "'");
 				return;
 			}
 		});
@@ -56,13 +56,15 @@ function initMap() {
 
 // caluclates and displays route
 function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+	const origin = document.getElementById("origin").value;
+	const destination = document.getElementById("destination").value;
 	directionsService
 		.route({
 			origin: {
-				query: document.getElementById("origin").value,
+				query: origin,
 			},
 			destination: {
-				query: document.getElementById("destination").value,
+				query: destination,
 			},
 			travelMode: google.maps.TravelMode.DRIVING,
 		})
@@ -71,6 +73,10 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
 		})
 		// if we catch an exception, reset map
 		.catch((e) => {
+			const errorString = "No route between '" + origin + "' and '" + destination + "'";
+			result.innerHTML = `
+				<p>ERROR: ${errorString}</p>\n
+			`
 			console.log(e);
 			initMap();
 		});
@@ -80,6 +86,7 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
 form.addEventListener("submit", getDistance);
 function getDistance(event) {
 	event.preventDefault();
+	result.innerHTML = ``
 	const data = new FormData(event.target);
 	const formJSON = Object.fromEntries(data.entries());
 
@@ -97,11 +104,16 @@ function getDistance(event) {
 	fetch("/getDistance", fetchOptions)
 		.then(response => response.json())
 		.then(data => {
+
 			if (data["distance"] === "undefined" || data["duration"] == "undefined") {
-				window.alert("No route between '" + formJSON["origin"] + "' and '" + formJSON["destination"] + "'");
+				const errorString = "No route between '" + formJSON["origin"] + "' and '" + formJSON["destination"] + "'";
+				result.innerHTML = `
+					<p>ERROR: ${errorString}</p>\n
+				`
 				return;
 			}
-			distance.innerHTML = `
+
+			result.innerHTML = `
 				<p><b>Distance:</b> ${data["distance"]}</p>\n
 				<p><b>Duration:</b> ${data["duration"]}</p>\n
 			`;
