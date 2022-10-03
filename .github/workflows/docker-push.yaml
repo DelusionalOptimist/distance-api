@@ -2,7 +2,7 @@ name: build-and-push-image
 
 on:
   push:
-    barnches:
+    branches:
       - "*"
     paths:
       - "**.go"
